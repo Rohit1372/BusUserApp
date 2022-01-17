@@ -15,7 +15,13 @@
             android:exported="true" />
         <activity
             android:name=".activity.SignUpActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+        <activity
+            android:name=".activity.Buses"
+            android:exported="true" />
+        <activity
+            android:name=".activity.Routes"
+            android:exported="true" />
         <activity
             android:name=".activity.LoginActivity"
             android:exported="true">
