@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:elevation="5dp"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="5dp">
+
+    <TextView
+        android:id="@+id/seatText"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="1"
+        android:textColor="#000000"
+        android:background="#45DC1B"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:fontFamily="sans-serif-thin"/>
+
+    <TextView
+        android:id="@+id/seatText2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="1"
+        android:textColor="#000000"
+        android:background="#ffffff"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:fontFamily="sans-serif-thin"/>
+
+</androidx.cardview.widget.CardView>

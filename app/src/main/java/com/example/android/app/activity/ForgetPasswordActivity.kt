@@ -21,6 +21,9 @@ class ForgetPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forget_password)
 
+        //Remove Action Bar
+        supportActionBar?.hide()
+
         auth = FirebaseAuth.getInstance()
 
         emailEt = findViewById(R.id.email_edt_text)

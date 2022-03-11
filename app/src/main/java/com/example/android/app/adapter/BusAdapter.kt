@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.android.app.activity.BusSeats
 import com.example.android.app.R
 import com.example.android.app.activity.Routes
 //import com.example.android.app.activity.Buses
 import com.example.android.busadminapp.model.Bus
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class BusAdapter(private val context:Context, private val busList:ArrayList<Bus>):RecyclerView.Adapter<BusAdapter.BusAdapterViewHolder>(),Filterable{
 
@@ -32,8 +31,8 @@ class BusAdapter(private val context:Context, private val busList:ArrayList<Bus>
         val startTime:TextView  = view.findViewById(R.id.start_time_list_item)
         val arrivalTime:TextView  = view.findViewById(R.id.arrival_time_list_item)
         val rate:TextView  = view.findViewById(R.id.rate_list_item)
-       // val delete : ImageView = view.findViewById(R.id.delete_list_item)
         val viewRoutes:TextView  = view.findViewById(R.id.viewRoutes)
+        val listContent : RelativeLayout = view.findViewById(R.id.list_Content)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusAdapterViewHolder {
@@ -66,21 +65,10 @@ class BusAdapter(private val context:Context, private val busList:ArrayList<Bus>
             context.startActivity(intent)
         }
 
-
-        //Delete Bus item from firestore
-
-        /*holder.delete.setOnClickListener {
-            val db = Firebase.firestore
-            db.collection("Buses").document(currentBus.id)
-                .delete()
-                .addOnSuccessListener {
-                    busList.remove(currentBus)
-                    Toast.makeText(context,"Data is Deleted",Toast.LENGTH_SHORT).show()
-                    notifyDataSetChanged()
-                }.addOnFailureListener {
-                    Toast.makeText(context,"Failed to delete data",Toast.LENGTH_SHORT).show()
-                }
-        }*/
+        holder.listContent.setOnClickListener {
+            val intent = Intent(context, BusSeats::class.java)
+            context.startActivity(intent)
+        }
 
     }
 

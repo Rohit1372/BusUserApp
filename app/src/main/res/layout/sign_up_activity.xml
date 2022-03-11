@@ -172,7 +172,8 @@
         android:layout_marginRight="16dp"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:background="@drawable/button_rounded"
+        android:fontFamily="sans-serif-thin"
+        android:background="@drawable/shape_background"
         />
 
     <RelativeLayout
@@ -222,7 +223,8 @@
         android:textSize="16sp"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:background="@drawable/button_rounded"
+        android:fontFamily="sans-serif-thin"
+        android:background="@drawable/shape_background"
         />
 
 

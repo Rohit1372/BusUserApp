@@ -27,6 +27,9 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sign_up_activity)
 
+        //Remove Action Bar
+        supportActionBar?.hide()
+
         auth = FirebaseAuth.getInstance()
 
         userName = findViewById(R.id.userName)
@@ -37,6 +40,18 @@ class SignUpActivity : AppCompatActivity() {
         registerBtn = findViewById(R.id.registerBtn)
         loginBtn  = findViewById(R.id.loginBtn)
 
+
+        loginBtn.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        register()
+
+    }
+
+    private  fun register(){
         registerBtn.setOnClickListener{
             var email: String = email.text.toString()
             var password: String = password.text.toString()
@@ -60,12 +75,6 @@ class SignUpActivity : AppCompatActivity() {
             }
 
         }
-
-
-        loginBtn.setOnClickListener{
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
+
 }
