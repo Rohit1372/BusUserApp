@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.android.app.R
 import com.google.android.gms.tasks.OnCompleteListener
@@ -15,13 +16,11 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var userName : EditText
     private lateinit var email : EditText
-    private  lateinit var phoneNumber  : EditText
     private lateinit var password : EditText
     private lateinit var confirmPassword : EditText
     private lateinit var registerBtn : Button
-    private lateinit var loginBtn : Button
+    private lateinit var loginBtn : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +31,7 @@ class SignUpActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        userName = findViewById(R.id.userName)
         email = findViewById(R.id.email)
-        phoneNumber= findViewById(R.id.phoneNumber)
         password = findViewById(R.id.password)
         confirmPassword = findViewById(R.id.confirmPassword)
         registerBtn = findViewById(R.id.registerBtn)
@@ -56,20 +53,18 @@ class SignUpActivity : AppCompatActivity() {
             var email: String = email.text.toString()
             var password: String = password.text.toString()
             var confirmPassword: String = confirmPassword.text.toString()
-            var userName: String = userName.text.toString()
-            var phoneNumber: String = phoneNumber.text.toString()
 
-            if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)  || TextUtils.isEmpty(confirmPassword)  || TextUtils.isEmpty(userName)  || TextUtils.isEmpty(phoneNumber)) {
+            if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)  || TextUtils.isEmpty(confirmPassword)) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show()
             } else{
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener{ task ->
                     if(task.isSuccessful){
-                        Toast.makeText(this, "Successfully Registered", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, Buses::class.java)
+                        Toast.makeText(this, "Successfully Registered", Toast.LENGTH_LONG).show()
+                        val intent = Intent(this, LoginActivity::class.java)
                         startActivity(intent)
                         finish()
                     }else {
-                        Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Registration Failed", Toast.LENGTH_LONG).show()
                     }
                 })
             }

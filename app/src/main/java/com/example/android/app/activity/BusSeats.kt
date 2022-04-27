@@ -17,7 +17,10 @@ class BusSeats : AppCompatActivity() {
     lateinit var totalSeats : TextView
     lateinit var remainingSeats : TextView
     lateinit var selectedSeats : TextView
+    lateinit var price : TextView
     lateinit var confirmBtn : Button
+
+    lateinit var addSeats : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,13 +29,20 @@ class BusSeats : AppCompatActivity() {
         totalSeats = findViewById(R.id.total_seats)
         remainingSeats = findViewById(R.id.seats_remaining)
         selectedSeats = findViewById(R.id.selected_seats)
+        price = findViewById(R.id.price)
         confirmBtn = findViewById(R.id.confirmBtn)
 
+        addSeats = findViewById(R.id.addSeats)
+
+        var priceIntent = intent.getStringExtra("price").toString()
+        price.text = priceIntent
+
+        //Total Seats
         var seat = 32
         totalSeats.setText("$seat")
 
         val recyclerView : RecyclerView = findViewById(R.id.seats_recyclerView)
-        val adapter = SeatsAdapter(this,fetch(),seat,selectedSeats,remainingSeats,confirmBtn)
+        val adapter = SeatsAdapter(this,fetch(),seat,selectedSeats,remainingSeats,confirmBtn,price,addSeats)
         recyclerView.layoutManager = GridLayoutManager(this,4)
         recyclerView.adapter=adapter
 

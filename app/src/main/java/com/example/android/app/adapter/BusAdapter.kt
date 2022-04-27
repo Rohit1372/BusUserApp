@@ -67,6 +67,7 @@ class BusAdapter(private val context:Context, private val busList:ArrayList<Bus>
 
         holder.listContent.setOnClickListener {
             val intent = Intent(context, BusSeats::class.java)
+                .putExtra("price",holder.rate.text)
             context.startActivity(intent)
         }
 

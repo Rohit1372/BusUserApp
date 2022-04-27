@@ -28,8 +28,15 @@ class YouCanPay : AppCompatActivity() {
         credit_card = findViewById(R.id.credit_card)
         debit_card = findViewById(R.id.debit_card)
 
-        val intent = intent.getStringExtra("selectedSeats").toString()
-        totalSeats2.text = intent
+        val selectedSeatsIntent = intent.getStringExtra("selectedSeats").toString()
+        val priceIntent = intent.getStringExtra("price")
+
+        totalSeats2.text = selectedSeatsIntent
+
+        val sI = Integer.parseInt(selectedSeatsIntent)
+        val pI = Integer.parseInt(priceIntent)
+        val p1 = sI*pI
+        payable2.text = p1.toString()
 
         upi.setOnClickListener {
             val intent = Intent(this,Upi::class.java)

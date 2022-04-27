@@ -14,16 +14,16 @@
             android:exported="true" />
         <activity
             android:name=".activity.DebitCardActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activity.CreditCardActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activity.Net_Banking"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activity.Upi"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activity.YouCanPay"
             android:exported="true" />

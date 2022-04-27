@@ -1,5 +1,6 @@
 package com.example.android.app.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -17,7 +18,8 @@ class CreditCardActivity : AppCompatActivity() {
         credit_card_next = findViewById(R.id.credit_card_next)
 
         credit_card_next.setOnClickListener {
-            Toast.makeText(this,"Next",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,ContactTnformationActivity::class.java)
+            startActivity(intent)
         }
 
     }

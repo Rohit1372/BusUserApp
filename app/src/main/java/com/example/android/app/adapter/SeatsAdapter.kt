@@ -14,9 +14,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.app.R
 import com.example.android.app.activity.YouCanPay
 
-class SeatsAdapter(private val context:Context, private val item: ArrayList<String>,var seat:Int ,var selectedSeats : TextView,var remainingSeats:TextView,val confirmBtn:Button) :RecyclerView.Adapter<SeatsAdapter.ViewHolder>() {
+class SeatsAdapter(private val context:Context, private val item: ArrayList<String>,var seat:Int ,var selectedSeats : TextView,var remainingSeats:TextView,val confirmBtn:Button,val price : TextView,val addSeats : TextView) :RecyclerView.Adapter<SeatsAdapter.ViewHolder>() {
 
     var count = 0
+
+    //val item2 = ArrayList<String>()
+
+    //MutableMap
+    val map : MutableMap<Int,String> = mutableMapOf<Int,String>()
 
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         val seatText : TextView = itemView.findViewById(R.id.seatText)
@@ -49,6 +54,10 @@ class SeatsAdapter(private val context:Context, private val item: ArrayList<Stri
             }else{
                 confirmBtn.isEnabled = false
             }
+
+            val po = position+1
+            map.remove(po)
+            addSeats.text = map.values.toString().replace("[","").replace("]","")
         }
 
         holder.seatText2.setOnClickListener {
@@ -64,14 +73,25 @@ class SeatsAdapter(private val context:Context, private val item: ArrayList<Stri
             var a  = selectedSeats.text.toString()
             if(Integer.parseInt(a) > 0){
                 confirmBtn.isEnabled = true
+
             }else{
                 confirmBtn.isEnabled = false
             }
+
+            /*val po = position+1
+            item2.add("$po")
+            addSeats.text = item2.toString().replace("[","").replace("]","")*/
+
+            val po = position+1
+            map.put(po,"$po")
+            addSeats.text = map.values.toString().replace("[","").replace("]","")
+
         }
 
         confirmBtn.setOnClickListener {
             val intent = Intent(context,YouCanPay::class.java)
                 .putExtra("selectedSeats",selectedSeats.text.toString())
+                .putExtra("price",price.text.toString())
             context.startActivity(intent)
         }
 

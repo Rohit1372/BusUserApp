@@ -3,7 +3,7 @@
     <style name="Theme.App" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/busicon</item>
-        <item name="colorPrimaryVariant">#27607A</item>
+        <item name="colorPrimaryVariant">@color/busicon</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

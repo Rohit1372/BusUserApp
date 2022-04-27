@@ -18,7 +18,8 @@ class Net_Banking : AppCompatActivity() {
         netBankingNext = findViewById(R.id.net_banking_next)
 
         netBankingNext.setOnClickListener {
-            Toast.makeText(this,"Next",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,ContactTnformationActivity::class.java)
+            startActivity(intent)
         }
 
     }
