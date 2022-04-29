@@ -24,17 +24,12 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginLoginBtn : Button
     private lateinit var resetPassword : TextView
 
-    //private lateinit var sharedPreferences: SharedPreferences
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         //Remove Action Bar
         supportActionBar?.hide()
-
-        /*sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
-        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn",false)*/
 
         auth = FirebaseAuth.getInstance()
 
@@ -47,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         loginRegisterBtn.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
-            //finish()
+            finish()
         }
 
         resetPassword.setOnClickListener{

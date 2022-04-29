@@ -15,7 +15,6 @@ class ForgetPasswordActivity : AppCompatActivity() {
 
     private lateinit var emailEt: EditText
     private lateinit var resetPasswordBtn: Button
-    private lateinit var back: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +27,6 @@ class ForgetPasswordActivity : AppCompatActivity() {
 
         emailEt = findViewById(R.id.email_edt_text)
         resetPasswordBtn = findViewById(R.id.reset_pass_btn)
-        back = findViewById(R.id.back_btn)
-
-        back.setOnClickListener {
-            finish()
-        }
 
         resetPasswordBtn.setOnClickListener {
             var email: String = emailEt.text.toString()
