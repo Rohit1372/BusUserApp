@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
         //Logged In
         val currentUser = auth.currentUser
         if(currentUser != null){
-            val intent = Intent(this,Buses::class.java)
+            val intent = Intent(this,HomeActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -73,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener { task ->
                     if(task.isSuccessful) {
                         Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()
-                        val intent = Intent(this,Buses::class.java)
+                        val intent = Intent(this,HomeActivity::class.java)
                         startActivity(intent)
                         finish()
                     }else {

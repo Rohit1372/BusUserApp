@@ -6,6 +6,8 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/drawable-hdpi/shape_background.xml" value="0.25" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/drawable-hdpi/shape_button.xml" value="0.22962962962962963" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/drawable-v24/button_rounded.xml" value="0.2203125" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/drawable/home_background.xml" value="0.240625" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/drawable/ic_dashboardwave.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/drawable/ic_wave.xml" value="0.23692307692307693" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/drawable/ic_wave__1_.xml" value="0.23692307692307693" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/drawable/layout_round.xml" value="0.2203125" />
@@ -16,6 +18,7 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/layout/activity_credit_card.xml" value="0.18974358974358974" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/layout/activity_debit_card.xml" value="0.19537037037037036" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/layout/activity_forget_password.xml" value="0.22" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/layout/activity_home.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/layout/activity_login.xml" value="0.22" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/layout/activity_main.xml" value="0.18717948717948718" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/App/app/src/main/res/layout/activity_main2.xml" value="0.18703703703703703" />

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
+            android:name=".activity.HomeActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.ContactTnformationActivity"
             android:exported="true" />
         <activity
