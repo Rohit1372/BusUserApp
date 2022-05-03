@@ -7,7 +7,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.SignUpActivity">
 
-    <View
+    <ImageView
+        android:id="@+id/view2"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/sign_up" />
+
+    <!--<View
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -18,16 +25,17 @@
         android:layout_below="@id/view1"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/ic_wave__1_"/>
+        android:background="@drawable/ic_wave__1_"/>-->
 
     <TextView
+        android:id="@id/view1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
-        android:text="Register"
-        android:textColor="@color/white"
-        android:textSize="50sp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="330dp"
+        android:text="SignUp"
+        android:textColor="@color/black"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -127,7 +135,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/registerBtn"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">

@@ -56,7 +56,9 @@ class SignUpActivity : AppCompatActivity() {
 
             if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)  || TextUtils.isEmpty(confirmPassword)) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show()
-            } else{
+            } else if(password != confirmPassword){
+                Toast.makeText(this,"Both password mismatch",Toast.LENGTH_LONG).show()
+            }else{
                 auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener{ task ->
                     if(task.isSuccessful){
                         Toast.makeText(this, "Successfully Registered", Toast.LENGTH_LONG).show()

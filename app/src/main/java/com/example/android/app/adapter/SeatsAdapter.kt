@@ -6,13 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.contains
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.app.R
-import com.example.android.app.activity.YouCanPay
 
 class SeatsAdapter(private val context:Context, private val item: ArrayList<String>,var seat:Int ,var selectedSeats : TextView,var remainingSeats:TextView,val confirmBtn:Button,val price : TextView,val addSeats : TextView) :RecyclerView.Adapter<SeatsAdapter.ViewHolder>() {
 
@@ -89,10 +86,7 @@ class SeatsAdapter(private val context:Context, private val item: ArrayList<Stri
         }
 
         confirmBtn.setOnClickListener {
-            val intent = Intent(context,YouCanPay::class.java)
-                .putExtra("selectedSeats",selectedSeats.text.toString())
-                .putExtra("price",price.text.toString())
-            context.startActivity(intent)
+            Toast.makeText(context,"Confirm",Toast.LENGTH_SHORT).show()
         }
 
     }

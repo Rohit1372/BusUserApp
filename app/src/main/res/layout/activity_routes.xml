@@ -68,7 +68,7 @@
             <ImageView
                 android:layout_width="125dp"
                 android:layout_height="125dp"
-                android:src="@drawable/ic_action_busicon"
+                android:src="@drawable/ic_action_mail"
                 android:layout_gravity="center_horizontal"/>
 
             <LinearLayout

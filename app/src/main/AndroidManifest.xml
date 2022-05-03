@@ -10,25 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
+            android:name=".activity.SplashScreenActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.HomeActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.ContactTnformationActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.DebitCardActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.CreditCardActivity"
-            android:exported="true" />
-        <activity
-            android:name=".activity.Net_Banking"
-            android:exported="true" />
-        <activity
-            android:name=".activity.Upi"
-            android:exported="true" />
-        <activity
-            android:name=".activity.YouCanPay"
             android:exported="true" />
         <activity
             android:name=".activity.BusSeats"
@@ -48,11 +39,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
