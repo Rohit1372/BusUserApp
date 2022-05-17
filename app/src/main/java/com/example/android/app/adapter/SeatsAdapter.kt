@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.app.R
 
-class SeatsAdapter(private val context:Context, private val item: ArrayList<String>,var seat:Int ,var selectedSeats : TextView,var remainingSeats:TextView,val confirmBtn:Button,val price : TextView,val addSeats : TextView) :RecyclerView.Adapter<SeatsAdapter.ViewHolder>() {
+class SeatsAdapter(private val context:Context, private val item: ArrayList<String>,val ticketPrice:TextView,val noOfSeats : TextView,val selectedSeats:TextView,val totalPrice:TextView,val confirmBtn:TextView) :RecyclerView.Adapter<SeatsAdapter.ViewHolder>() {
 
     var count = 0
 
@@ -41,9 +41,12 @@ class SeatsAdapter(private val context:Context, private val item: ArrayList<Stri
             holder.seatText2.visibility = View.VISIBLE
 
             count--
-            var rseat1 = seat - count
             selectedSeats.setText("$count")
-            remainingSeats.setText("$rseat1")
+
+            var tp1 = ticketPrice.text.toString()
+            var tp2 = Integer.parseInt(tp1)
+            var tp3 = count*tp2
+            totalPrice.setText("$tp3")
 
             var a  = selectedSeats.text.toString()
             if(Integer.parseInt(a) > 0){
@@ -54,18 +57,21 @@ class SeatsAdapter(private val context:Context, private val item: ArrayList<Stri
 
             val po = position+1
             map.remove(po)
-            addSeats.text = map.values.toString().replace("[","").replace("]","")
+            noOfSeats.text = map.values.toString().replace("[","").replace("]","")
+
         }
 
         holder.seatText2.setOnClickListener {
-            //Toast.makeText(context,"Hello",Toast.LENGTH_SHORT).show()
             holder.seatText2.visibility = View.GONE
             holder.seatText.visibility = View.VISIBLE
 
             count++
-            var rseat1 = seat - count
             selectedSeats.setText("$count")
-            remainingSeats.setText("$rseat1")
+
+            var tp1 = ticketPrice.text.toString()
+            var tp2 = Integer.parseInt(tp1)
+            var tp3 = count*tp2
+            totalPrice.setText("$tp3")
 
             var a  = selectedSeats.text.toString()
             if(Integer.parseInt(a) > 0){
@@ -75,18 +81,14 @@ class SeatsAdapter(private val context:Context, private val item: ArrayList<Stri
                 confirmBtn.isEnabled = false
             }
 
-            /*val po = position+1
-            item2.add("$po")
-            addSeats.text = item2.toString().replace("[","").replace("]","")*/
-
             val po = position+1
             map.put(po,"$po")
-            addSeats.text = map.values.toString().replace("[","").replace("]","")
+            noOfSeats.text = map.values.toString().replace("[","").replace("]","")
 
-        }
+            if(count==0){
+                noOfSeats.visibility = View.VISIBLE
+            }
 
-        confirmBtn.setOnClickListener {
-            Toast.makeText(context,"Confirm",Toast.LENGTH_SHORT).show()
         }
 
     }
