@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.app">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,6 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
+        <activity
+            android:name=".activity.PayActivity"
+            android:exported="true" />
         <activity
             android:name=".activity.SplashScreenActivity"
             android:exported="true">
@@ -40,15 +43,14 @@
             android:exported="true" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="true">
+            android:exported="true"></activity>
 
-        </activity>
         <meta-data
             android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_g2iGXt2zlEDVHe"/>
+            android:value="rzp_test_g2iGXt2zlEDVHe" />
         <meta-data
             android:name="com.google.gms.wallet.api.enabled"
-            android:value="true"/>
+            android:value="true" />
     </application>
 
 </manifest>
