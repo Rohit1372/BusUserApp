@@ -1,14 +1,15 @@
 package com.example.android.app.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.util.Patterns
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import com.example.android.app.ForgetPasswordActivity
 import com.example.android.app.R
 import com.google.android.gms.tasks.OnCompleteListener
@@ -23,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginRegisterBtn : TextView
     private lateinit var loginLoginBtn : Button
     private lateinit var resetPassword : TextView
+    private lateinit var back_arrow : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +40,17 @@ class LoginActivity : AppCompatActivity() {
         loginRegisterBtn = findViewById(R.id.login_register_btn)
         loginLoginBtn = findViewById(R.id.login_login_btn)
         resetPassword = findViewById(R.id.reset_password)
+        back_arrow = findViewById(R.id.back_arrow)
+
+        back_arrow.setOnClickListener {
+            onBackPressed()
+        }
+
 
         loginRegisterBtn.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
-            finish()
+            //finish()
         }
 
         resetPassword.setOnClickListener{
@@ -62,6 +70,19 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Are you sure!")
+        builder.setMessage("Do you want to close this app?")
+        builder.setPositiveButton("Yes",{ dialogInterface : DialogInterface, i:Int ->
+            finish()
+        })
+        builder.setNegativeButton("No",{ dialogInterface : DialogInterface, i:Int ->
+        })
+        builder.create()
+        builder.show()
+    }
+
     private fun logIn(){
         loginLoginBtn.setOnClickListener {
             var email: String = loginEmail.text.toString()
@@ -69,7 +90,12 @@ class LoginActivity : AppCompatActivity() {
 
             if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
                 Toast.makeText(this@LoginActivity, "Please fill all the fields", Toast.LENGTH_LONG).show()
-            } else{
+            }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show()
+            }else if(password.length<6){
+                Toast.makeText(this, "Password must be atleast 6", Toast.LENGTH_SHORT).show()
+            }
+            else{
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener { task ->
                     if(task.isSuccessful) {
                         Toast.makeText(this, "Successfully Logged In", Toast.LENGTH_LONG).show()

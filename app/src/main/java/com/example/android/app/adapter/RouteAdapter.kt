@@ -19,8 +19,6 @@ class RouteAdapter( private val context : Context,private val routeList: ArrayLi
     class RouteAdapterViewHolder(view: View):RecyclerView.ViewHolder(view){
         val stopNo :TextView = view.findViewById(R.id.stopNo_list_item)
         val stopAt :TextView = view.findViewById(R.id.stopAt_list_item)
-        val stopTime :TextView = view.findViewById(R.id.stopTime_list_item)
-        //val delete : ImageView = view.findViewById(R.id.delete_route_list)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RouteAdapterViewHolder {
@@ -33,29 +31,6 @@ class RouteAdapter( private val context : Context,private val routeList: ArrayLi
         val currentRoute = routeList[position]
         holder.stopAt.text=currentRoute.stopAt
         holder.stopNo.text=currentRoute.stopNumber
-        holder.stopTime.text=currentRoute.stopTime
-
-        /*//delete routes from list
-        holder.delete.setOnClickListener {
-
-            val route: MutableMap<String, Any> = HashMap()
-
-            route["Stop Number"] = currentRoute.stopNumber
-            route["Stop At"] = currentRoute.stopAt
-            route["Stop Time"] = currentRoute.stopTime
-
-            val db = Firebase.firestore
-
-            db.collection("Buses").document(id).update("Routes",FieldValue.arrayRemove(route))
-                .addOnSuccessListener {
-                    routeList.remove(currentRoute)
-                    Toast.makeText(context,"Route is deleted",Toast.LENGTH_SHORT).show()
-                    notifyDataSetChanged()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(context,"Failed to delete route",Toast.LENGTH_SHORT).show()
-                }
-        }*/
     }
 
     override fun getItemCount(): Int {

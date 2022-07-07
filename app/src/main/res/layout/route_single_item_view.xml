@@ -1,57 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="5dp"
     android:layout_margin="5dp"
-    app:cardCornerRadius="7dp">
+    >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:layout_margin="5dp"
+        android:elevation="5dp"
+        android:layout_alignParentLeft="true"
+        android:backgroundTint="@color/busicon"
+        app:cardCornerRadius="7dp">
 
         <TextView
             android:id="@+id/stopNo_list_item"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="Stop No. "
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-thin"
-            android:textSize="23sp"/>
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:text="StopNo. "
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"
+            android:textSize="18sp"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@id/card1"
+        android:elevation="5dp"
+        app:cardCornerRadius="7dp">
 
         <TextView
             android:id="@+id/stopAt_list_item"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
+            android:layout_margin="5dp"
             android:text="Stop At"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-thin"
-            android:textSize="23sp"/>
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"/>
 
-        <TextView
-            android:id="@+id/stopTime_list_item"
-            android:layout_width="0dp"
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
+
+    <!--<androidx.cardview.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardElevation="5dp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="7dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:text="At Time"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-thin"
-            android:textSize="23sp"/>
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-        <!--<ImageView
-            android:id="@+id/delete_route_list"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_action_delete"/>-->
+            <TextView
+                android:id="@+id/stopNo_list_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Stop No. "
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-thin"
+                android:textSize="23sp"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/stopAt_list_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Stop At"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-thin"
+                android:textSize="23sp"/>
 
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/stopTime_list_item"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="At Time"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-thin"
+                android:textSize="23sp"/>
+
+            <ImageView
+                android:id="@+id/delete_route_list"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_action_delete"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>-->

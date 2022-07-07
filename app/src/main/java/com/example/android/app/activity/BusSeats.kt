@@ -34,14 +34,26 @@ class BusSeats : AppCompatActivity() {
         totalPrice = findViewById(R.id.totalPrice1)
         confirmBtn = findViewById(R.id.confirmBtn)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Book your seat"
+
+        var fromBS = intent.getStringExtra("from").toString()
+        var toBS = intent.getStringExtra("to").toString()
+        var busServiceBS = intent.getStringExtra("bus service").toString()
+        var busNumberBS = intent.getStringExtra("bus no.").toString()
+        var dateBS = intent.getStringExtra("date").toString()
+        var startTimeBS = intent.getStringExtra("start time").toString()
+        var arrivalTimeBS = intent.getStringExtra("arrival time").toString()
         var priceIntent = intent.getStringExtra("price").toString()
         ticketPrice.text = priceIntent
+
+        val id = intent.getStringExtra("id").toString()
 
         //Total Seats
         //var seat = 32
 
         val recyclerView : RecyclerView = findViewById(R.id.seats_recyclerView)
-        val adapter = SeatsAdapter(this,fetch(),ticketPrice,noOfSeats,selectedSeats,totalPrice,confirmBtn)
+        val adapter = SeatsAdapter(this,fetch(),ticketPrice,noOfSeats,selectedSeats,totalPrice,confirmBtn,id,fromBS,toBS,busServiceBS,busNumberBS,dateBS,startTimeBS,arrivalTimeBS)
         recyclerView.layoutManager = GridLayoutManager(this,4)
         recyclerView.adapter=adapter
 

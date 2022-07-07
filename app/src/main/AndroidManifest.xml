@@ -12,8 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
-            android:name=".activity.PayActivity"
+            android:name=".activity.BookedTicketActivity"
+            android:exported="true"
+            android:parentActivityName=".activity.HomeActivity"/>
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:exported="true"
+            android:parentActivityName=".activity.HomeActivity" />
+        <activity
+            android:name=".activity.PaymentSuccessActivity"
             android:exported="true" />
+        <activity
+            android:name=".activity.PayActivity"
+            android:exported="true"
+            android:parentActivityName=".activity.BusSeats" />
         <activity
             android:name=".activity.SplashScreenActivity"
             android:exported="true">
@@ -28,7 +40,8 @@
             android:exported="true" />
         <activity
             android:name=".activity.BusSeats"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".activity.Buses" />
         <activity
             android:name=".ForgetPasswordActivity"
             android:exported="true" />
@@ -37,13 +50,15 @@
             android:exported="true" />
         <activity
             android:name=".activity.Buses"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".activity.HomeActivity" />
         <activity
             android:name=".activity.Routes"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".activity.Buses" />
         <activity
             android:name=".activity.LoginActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="com.razorpay.ApiKey"
