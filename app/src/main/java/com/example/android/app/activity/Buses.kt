@@ -3,15 +3,20 @@ package com.example.android.app.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.app.R
+import com.example.android.app.utils.NetworkHelper
 import com.example.android.busadminapp.adapter.BusAdapter
 import com.example.android.busadminapp.model.Bus
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -24,6 +29,8 @@ class Buses : AppCompatActivity() {
     private lateinit var busList : ArrayList<Bus>
 
     private lateinit var busAdapter: BusAdapter
+
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,36 +49,21 @@ class Buses : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = busAdapter
 
-        /*addBus.setOnClickListener {
-            val intent = Intent(this, AddBus::class.java)
-            startActivity(intent)
-            finish()
-        }*/
+        val relativeLayout : RelativeLayout = findViewById(R.id.relativeLayout_bus)
+        progressBar = findViewById(R.id.progressBar_bus)
 
-        getData()
+        if(NetworkHelper.isNetworkConnected(this)){
+            getData()
+
+        }else{
+            progressBar.visibility= View.VISIBLE
+            Snackbar.make(relativeLayout,"Sorry! There is no network connection.Please try later",
+                Snackbar.LENGTH_INDEFINITE).show()
+        }
+
+        //getData()
 
     }
-
-    //Searching
-
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-
-        menuInflater.inflate(R.menu.search_buses,menu)
-        var searchItem=menu?.findItem(R.id.searchBtn)
-        var searchView=searchItem?.actionView as SearchView;
-        //searchView.setImeOptions(EditorInfo.IME_ACTION_DONE)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                busAdapter.getFilter().filter(newText)
-                return false
-            }
-        })
-        return true
-    }*/
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_buses,menu)
@@ -129,7 +121,7 @@ class Buses : AppCompatActivity() {
                         Bus(id,from,to,busService,busNo,date,startingTime,arrivalTime,price)
                     )
                 }
-
+                progressBar.visibility=View.GONE
                 busAdapter.notifyDataSetChanged()
 
             }.addOnFailureListener {
