@@ -1,14 +1,21 @@
 package com.example.android.app.activity
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
 import android.widget.*
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.android.app.R
 import com.example.android.app.utils.NetworkHelper
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -27,6 +34,12 @@ class PayActivity : AppCompatActivity() , PaymentResultListener {
     lateinit var stop_loc : TextView
     lateinit var pay :Button
 
+    private lateinit var auth: FirebaseAuth
+
+    val CHANNEL_ID = "channelID"
+    val CHANNEL_NAME = "channelName"
+    val NOTIF_ID = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pay)
@@ -39,6 +52,8 @@ class PayActivity : AppCompatActivity() , PaymentResultListener {
         pay_total_price = findViewById(R.id.pay_totalPrice1)
         stop_loc = findViewById(R.id.pay_stop_loc)
         pay = findViewById(R.id.pay)
+
+        auth = FirebaseAuth.getInstance()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Payment"
@@ -53,6 +68,8 @@ class PayActivity : AppCompatActivity() , PaymentResultListener {
 
         val layout : ScrollView = findViewById(R.id.pay_layout)
 
+
+
         pay.setOnClickListener {
 
             if(NetworkHelper.isNetworkConnected(this)){
@@ -61,12 +78,16 @@ class PayActivity : AppCompatActivity() , PaymentResultListener {
                 val pemail = pay_email.text.toString()
                 val pPhoneNo = pay_phoneNo.text.toString()
                 val pStopLoc = stop_loc.text.toString()
+
                 if(TextUtils.isEmpty(pname) || TextUtils.isEmpty(pemail) || TextUtils.isEmpty(pPhoneNo)|| TextUtils.isEmpty(pStopLoc)){
-                    Toast.makeText(this,"Please fill all the field",Toast.LENGTH_LONG).show()
+                    Snackbar.make(layout,"Please fill all the fiels",
+                        Snackbar.LENGTH_LONG).show()
                 }else if(!Patterns.EMAIL_ADDRESS.matcher(pemail).matches()){
-                    Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(layout,"Invalid Email",
+                        Snackbar.LENGTH_LONG).show()
                 }else if(pPhoneNo.length < 10){
-                    Toast.makeText(this, "Invalid Phone No.", Toast.LENGTH_SHORT).show()
+                    Snackbar.make(layout,"Invlid phone number",
+                        Snackbar.LENGTH_LONG).show()
                 }
                 else{
                     //saveFireStore(name,phone,email,noOfSeats,selectedSeats,totalPrice,id)
@@ -79,6 +100,17 @@ class PayActivity : AppCompatActivity() , PaymentResultListener {
             }
         }
 
+    }
+
+    private fun createNotifChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT).apply {
+                lightColor = Color.BLUE
+                enableLights(true)
+            }
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
     }
 
     fun makepayment(){
@@ -136,27 +168,96 @@ class PayActivity : AppCompatActivity() , PaymentResultListener {
         val totalPrice = pay_total_price.text.toString()
 
         val intent = Intent(this,PaymentSuccessActivity::class.java)
-            .putExtra("id",id)
-            .putExtra("name",name)
-            .putExtra("phone",phone)
-            .putExtra("email",email)
-            .putExtra("noOfSeats",noOfSeats)
-            .putExtra("selectedSeats",selectedSeats)
-            .putExtra("totalPrice",totalPrice)
-            .putExtra("from",intent_from)
-            .putExtra("to",intent_to)
-            .putExtra("bus service",intent_busService)
-            .putExtra("bus no.",intent_busNumber)
-            .putExtra("date",intent_date)
-            .putExtra("start time",intent_startTime)
-            .putExtra("arrival time",intent_arrivalTime)
         startActivity(intent)
+
+        saveInBus(name,phone,email,noOfSeats,selectedSeats,totalPrice,id)
+
+        saveInUser(name,phone,email,noOfSeats,selectedSeats,totalPrice,intent_from,intent_to,intent_busService,intent_busNumber,intent_date,intent_startTime,intent_arrivalTime)
+
+
+        //Notification
+        createNotifChannel()
+
+        val notif = NotificationCompat.Builder(this,CHANNEL_ID)
+            .setContentTitle("Ticked Booked")
+            .setColor(2762355)
+            .setContentText("Your Bus Ticket Booked Successfull")
+            .setSmallIcon(R.drawable.notif_bus)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+
+        val notifManger = NotificationManagerCompat.from(this)
+
+        notifManger.notify(NOTIF_ID,notif)
+
         finish()
 
     }
 
     override fun onPaymentError(p0: Int, p1: String?) {
         Toast.makeText(this,"Error $p1", Toast.LENGTH_LONG).show()
+    }
+
+    private fun saveInBus(name : String, phone : String, email : String, noOfSeats : String, selectedSeats : String, totalPrice : String, id:String) {
+        val db = Firebase.firestore
+        val seat: MutableMap<String, Any> = HashMap()
+        seat["Name"] = name
+        seat["Phone No."] = phone
+        seat["Email"] = email
+        seat["Number Of Seats"] = noOfSeats
+        seat["Selected Seats"] = selectedSeats
+        seat["Total Price"] = totalPrice
+
+        db.collection("Buses").document(id)
+            .update("BookedSeats", FieldValue.arrayUnion(seat))
+            .addOnCompleteListener {
+                Toast.makeText(this, "Seat Booked successfully", Toast.LENGTH_SHORT).show()
+                finish()
+            }.addOnFailureListener {
+                Toast.makeText(this, "Failed To seat book", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun saveInUser(
+        name: String,
+        phone: String,
+        email: String,
+        noOfSeats: String,
+        selectedSeats: String,
+        totalPrice: String,
+        from: String,
+        to: String,
+        busService: String,
+        busNumber: String,
+        date: String,
+        startTime: String,
+        arrivalTime: String,) {
+        val db = Firebase.firestore
+        val currentUser = auth.currentUser!!.uid
+        val user: MutableMap<String, Any> = HashMap()
+        user["Name"] = name
+        user["Phone No."] = phone
+        user["Email"] = email
+        user["Number Of Seats"] = noOfSeats
+        user["Selected Seats"] = selectedSeats
+        user["From"] = from
+        user["To"] = to
+        user["Bus Service"] = busService
+        user["Bus Number"] = busNumber
+        user["Date"] = date
+        user["Start Time"] = startTime
+        user["Arrival Time"] = arrivalTime
+        user["Total Price"] = totalPrice
+
+
+        db.collection("UserProfile").document(currentUser)
+            .update("BookedSeats", FieldValue.arrayUnion(user))
+            .addOnCompleteListener {
+                Toast.makeText(this, "Seat Booked successfully", Toast.LENGTH_SHORT).show()
+                finish()
+            }.addOnFailureListener {
+                Toast.makeText(this, "Failed To seat book", Toast.LENGTH_SHORT).show()
+            }
     }
 
 }

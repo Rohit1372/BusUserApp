@@ -3,9 +3,12 @@ package com.example.android.app.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import com.example.android.app.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -32,30 +35,25 @@ class ProfileActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
         databaseReference = database?.reference!!.child("users")
 
-        loadProfile()
+        getData()
 
     }
 
-    private fun loadProfile() {
 
-        val user = auth.currentUser
-        val userReference = databaseReference?.child(user?.uid!!)
-        profile_email.text = user?.email
+    fun getData() {
+        val db = Firebase.firestore
+        val user = auth.currentUser!!.uid
+        db.collection("UserProfile").document(user)
+            .get()
+            .addOnSuccessListener {
+                val admin: MutableMap<String, Any> = it.data!!
+                profile_name.text = admin["name"].toString()
+                profile_phone.text = admin["phoneNo"].toString()
+                profile_email.text = admin["email"].toString()
 
-        userReference?.addValueEventListener(
-            object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    profile_name.text = snapshot.child("name").value.toString()
-                    profile_phone.text = snapshot.child("phoneNo").value.toString()
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
-
+            }.addOnFailureListener {
+                Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
             }
-        )
-
     }
 
 }

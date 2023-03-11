@@ -13,5 +13,5 @@ data class BookedTicket(
     val arrivalTime : String,
     val totalPrice : String,
     val from : String,
-    val to : String,
+    val to : String
 )

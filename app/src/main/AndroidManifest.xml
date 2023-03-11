@@ -14,21 +14,26 @@
         android:theme="@style/Theme.App">
         <activity
             android:name=".activity.BookedTicketActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true"
             android:parentActivityName=".activity.HomeActivity"/>
         <activity
             android:name=".activity.ProfileActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true"
             android:parentActivityName=".activity.HomeActivity" />
         <activity
             android:name=".activity.PaymentSuccessActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true" />
         <activity
             android:name=".activity.PayActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true"
             android:parentActivityName=".activity.BusSeats" />
         <activity
             android:name=".activity.SplashScreenActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,27 +43,34 @@
         </activity>
         <activity
             android:name=".activity.HomeActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true" />
         <activity
             android:name=".activity.BusSeats"
+            android:configChanges="orientation|screenSize"
             android:exported="true"
             android:parentActivityName=".activity.Buses" />
         <activity
             android:name=".ForgetPasswordActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true" />
         <activity
             android:name=".activity.SignUpActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true" />
         <activity
             android:name=".activity.Buses"
+            android:configChanges="orientation|screenSize"
             android:exported="true"
             android:parentActivityName=".activity.HomeActivity" />
         <activity
             android:name=".activity.Routes"
+            android:configChanges="orientation|screenSize"
             android:exported="true"
             android:parentActivityName=".activity.Buses" />
         <activity
             android:name=".activity.LoginActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="true" />
 
         <meta-data

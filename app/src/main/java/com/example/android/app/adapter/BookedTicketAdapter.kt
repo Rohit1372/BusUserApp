@@ -5,11 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.app.R
 import com.example.android.app.model.BookedTicket
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
-class BookedTicketAdapter(val context: Context, val bookedList : ArrayList<BookedTicket>):
+class BookedTicketAdapter(
+    val context: Context,
+    val bookedList: ArrayList<BookedTicket>,
+    val currentUser: String,
+    ):
     RecyclerView.Adapter<BookedTicketAdapter.BookedTicketAdapterViewHolder>(){
 
     class BookedTicketAdapterViewHolder(view: View):RecyclerView.ViewHolder(view){
@@ -53,6 +61,37 @@ class BookedTicketAdapter(val context: Context, val bookedList : ArrayList<Booke
 
     override fun getItemCount(): Int {
         return bookedList.size
+    }
+
+    fun deleteItem(position: Int){
+        val bookedSeat: MutableMap<String, Any> = HashMap()
+        val list = bookedList[position]
+
+        bookedSeat["Name"] = list.name
+        bookedSeat["Phone No."] = list.phoneNo
+        bookedSeat["Email"] = list.email
+        bookedSeat["Number Of Seats"] = list.noOfSeats
+        bookedSeat["Selected Seats"] = list.selectedSeats
+        bookedSeat["Total Price"] = list.totalPrice
+        bookedSeat["From"] = list.from
+        bookedSeat["To"] = list.to
+        bookedSeat["Bus Service"] = list.busService
+        bookedSeat["Bus Number"] = list.busNumber
+        bookedSeat["Date"] = list.date
+        bookedSeat["Start Time"] = list.startTime
+        bookedSeat["Arrival Time"] = list.arrivalTime
+
+        val db = Firebase.firestore
+
+        db.collection("UserProfile").document(currentUser).update("BookedSeats", FieldValue.arrayRemove(bookedSeat))
+            .addOnSuccessListener {
+                bookedList.remove(list)
+                Toast.makeText(context,"Booked seats Deleted Successfully", Toast.LENGTH_LONG).show()
+                notifyDataSetChanged()
+            }
+            .addOnFailureListener {
+                Toast.makeText(context,"Failed to delete data", Toast.LENGTH_LONG).show()
+            }
     }
 
 }
